@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Component } from 'react';
 
-export default class App extends Component {
-  render(){
-    return(
-      <di>Hello</di>
-    )
-  }
-}
+import App from "./App"
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>

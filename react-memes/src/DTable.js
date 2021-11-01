@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 
-export default function DTable(props) {
-    console.log(props)
-    // var dTable = document.querySelector(".dynamicTable");
-    // console.log(dTable)
-    // var nrow = dTable.insertRow(-1);
-    // var oneCell = nrow.insertCell(0)
-    // var twoCell = nrow.insertCell(1)
-
-    // oneCell.innerHTML = "<tr>"+props.searchProp+"</tr>"; 
-    // twoCell.innerHTML = "<p>This is me</p>";
-
+export default class DTable extends Component {
+        
     
-    return (
+    constructor(props){
+        super(props);
+        console.log(this.props.memeRes)
+        
+    }
+
+    render() { 
+        //console.log("hi", this.state.allMeme.memes[0].name)
+        return (
         <div>
             <table className="dynamicTable" border="5px">
                     <tr>
@@ -26,6 +25,7 @@ export default function DTable(props) {
                     </tr>
                 </table>
         </div>
-    )
+        )
+    }
     
 }

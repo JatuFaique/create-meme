@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Button , Modal,ModalHeader,ModalBody,ModalFooter} from 'reactstrap';
 
 
 class newSearchBar extends Component{
@@ -19,16 +20,21 @@ class newSearchBar extends Component{
             searchTerm : "",
             memeResponse : [],
             filter: [],
-            source: []
+            source: [],
+            modal: false,
+            currImg: ""
         }
         this.handleChange = this.handleChange.bind(this);
         
         
     }
 
+    
+
     handleChange(event){
+        
         this.setState({ searchTerm: event.target.value})
-        //console.log(typeof(this.state.memeResponse[0].name));
+        console.log("search:",this.state.searchTerm);
         var filteredres = []
         var source = []
         for(let i =0; i<100; i++){
@@ -51,12 +57,14 @@ class newSearchBar extends Component{
 
 
     render() {
-        console.log(this.state.filter)
-        console.log(this.state.source)
+        //console.log(this.state.filter)
+        //console.log(this.state.source)
         if(this.state.searchTerm.length===0){
             return(
                 <div>
-                        <input onChange={this.handleChange}></input>
+                        <input onChange={(event)=>{
+                            this.setState({searchTerm: event.target.value})
+                        }}></input>
                 </div>
                 );
             
@@ -66,7 +74,7 @@ class newSearchBar extends Component{
             return (
                 <div>
                     <input onChange={this.handleChange}></input>
-                    {/* { this.state.memeResponse[0].map( ()=>{} )} */}
+                    
                     <table border = '5px'>
                         <thead>
                             <tr>
@@ -75,14 +83,24 @@ class newSearchBar extends Component{
                             </tr>
                         </thead>
                         <tbody>
-                            <td>
-                            {this.state.filter.map( head => <tr>{head}</tr>)}
-                            </td>
-                            <td>
-                            {this.state.source.map( source => <tr>{source}</tr>)}
-                            </td>
+                           
+                            {this.state.filter.map( (head,i) => <tr>
+                                <td>{head}</td>
+                                <td> <a onClick={()=>{this.setState({ modal: !this.state.modal, currImg: this.state.source[i]})}}>{this.state.source[i]}</a></td>
+                                </tr>)}
+                            
+                           
                         </tbody>
                     </table>
+                    <Modal isOpen={this.state.modal} toggle={()=>{this.setState({ modal: !this.state.modal})}}>
+                        <ModalHeader>title</ModalHeader>
+                        <ModalBody>
+                            <img width={"500px"} height={"500px"} src={this.state.currImg}></img>
+                        </ModalBody>
+                        <ModalFooter>
+                        <Button>OK</Button>
+                        </ModalFooter>
+                    </Modal>
                    
                 </div>
             );

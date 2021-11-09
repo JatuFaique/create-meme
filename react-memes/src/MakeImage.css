@@ -1,0 +1,13 @@
+.image-text-top {
+  position: absolute;
+  bottom: 500px;
+  left: 100px;
+  font-style: italic;
+}
+
+.image-text-bottom {
+  position: absolute;
+  bottom: 100px;
+  left: 100px;
+  font-style: italic;
+}

@@ -1,8 +1,9 @@
 import React from "react"
 import NewSearchBar from "./NewSearchBar"
+import MakeImage from "./MakeImage";
 import { Component } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button , Modal,ModalHeader,ModalBody,ModalFooter} from 'reactstrap';
+import './App.css'
 
 
 
@@ -18,7 +19,7 @@ class App extends Component {
     render(){
       return(
           <div>
-              <Button color="danger" onClick={()=>{this.setState({ modal: !this.state.modal})}}>Danger!</Button>
+              {/* <Button color="danger" onClick={()=>{this.setState({ modal: !this.state.modal})}}>Danger!</Button>
                 <table>
                   <tr>
                     <td>
@@ -32,9 +33,10 @@ class App extends Component {
                 <ModalFooter>
                   <Button>OK</Button>
                 </ModalFooter>
-              </Modal>
+              </Modal> */}
               
-              <NewSearchBar />
+              {/* <NewSearchBar /> */}
+              <MakeImage />
 
           </div>
       )

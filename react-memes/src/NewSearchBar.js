@@ -67,11 +67,10 @@ class newSearchBar extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.filter.map((head, i) => (
+              {this.state.filter.map((name, i) => (
                 <tr>
-                  <td>{head}</td>
+                  <td>{name}</td>
                   <td>
-                    {" "}
                     <a
                       onClick={() => {
                         this.setState({

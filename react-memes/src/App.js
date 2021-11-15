@@ -12,7 +12,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
-import ShowList from "./ShowList";
 
 // import axios from "axios";
 
@@ -33,10 +32,11 @@ class App extends Component {
           <Route path="/" exact>
             <Login />
           </Route>
-          <Route path="/memes" exact>
+          <Route path="/Dashboard" exact>
             <Dashboard />
           </Route>
         </Router>
+        {/* <MakeImage /> */}
       </div>
     );
   }

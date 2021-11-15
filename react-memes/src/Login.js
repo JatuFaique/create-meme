@@ -24,8 +24,15 @@ export default class Login extends Component {
   login = (event) => {
     let user_id = this.state.loginParams.user_id;
     let user_password = this.state.loginParams.user_password;
-    if (user_id === "admin" && user_password === "123") {
-      localStorage.setItem("token", this.state.loginParams.user_id);
+    if (user_id === "adminA" && user_password === "123") {
+      localStorage.setItem("token", "A");
+      localStorage.setItem("username", user_id);
+      this.setState({
+        logged_in: true,
+      });
+    } else if (user_id === "adminB" && user_password === "123") {
+      localStorage.setItem("token", "B");
+      localStorage.setItem("username", user_id);
       this.setState({
         logged_in: true,
       });
@@ -37,8 +44,7 @@ export default class Login extends Component {
       <div className="container">
         {this.state.logged_in ? (
           <>
-            {console.log("redirect")}
-            <Redirect to="/memes" />
+            <Redirect to="/Dashboard" />
           </>
         ) : (
           <></>
@@ -62,7 +68,7 @@ export default class Login extends Component {
               <input type="submit" value="Login" />
             </div>
           </div>
-          <p>user_id === "admin" && user_password === "123"</p>
+          <p>user_id === "adminA or adminB" && user_password === "123"</p>
         </form>
       </div>
     );

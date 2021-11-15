@@ -31,16 +31,22 @@ export default class Dashboard extends Component {
     this.setState({
       islogout: true,
     });
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
   }
 
   render() {
     //Checklist there, on
-    if (this.state.islogout) {
+    if (!localStorage.getItem("token")) {
+      return <Redirect to="/" />;
+    } else if (this.state.islogout) {
       return <Redirect to="/" />;
     }
     return (
       <div>
         <h1>Dashboard</h1>
+        {/* Only check implemented for One User [ Only One State Variable ]
+            Passing Meme Response as Props to table component */}
         <Button onClick={this.signOut}>SignOut</Button>
         <MyTable memesList={this.state.memeResponse}></MyTable>
       </div>

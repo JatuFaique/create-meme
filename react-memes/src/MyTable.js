@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { Route, Routes } from "react-router";
+import { BrowserRouter, Link } from "react-router-dom";
 import { Button } from "reactstrap";
+import ShowList from "./ShowList";
 
 export default class MyTable extends Component {
   constructor(props) {
@@ -7,14 +10,17 @@ export default class MyTable extends Component {
     this.state = {
       checkedList: [],
       checkMark: true,
+      showMyList: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.handleShowList = this.handleShowList.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    // localstorage
     console.log("submitted finally", this.state.checkedList);
   }
 
@@ -42,10 +48,24 @@ export default class MyTable extends Component {
     }
   }
 
+  handleShowList(e) {
+    // local me h?
+    if (this.state.checkedList.length === 0) {
+      alert("No list to show");
+    } else {
+      this.setState({
+        showMyList: !this.state.showMyList,
+      });
+    }
+  }
+
   render() {
+    if (this.state.showMyList) {
+      return <p>your list here</p>;
+    }
     return (
       <div>
-        <Button>SHow My List</Button>
+        <Button onClick={this.handleShowList}>SHow My List</Button>
         <br></br>
         <form>
           <Button type="submit" onClick={this.handleSubmit}>

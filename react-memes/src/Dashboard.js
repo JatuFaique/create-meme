@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import MyTable from "./MyTable";
+import "./Dashboard.css";
 import { Link, Redirect } from "react-router-dom";
 
 export default class Dashboard extends Component {
@@ -43,7 +44,7 @@ export default class Dashboard extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <div>
+      <div className="dashboard-box">
         <h1>Dashboard</h1>
         {/* Only check implemented for One User [ Only One State Variable ]
             Passing Meme Response as Props to table component */}

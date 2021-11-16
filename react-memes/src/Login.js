@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
+import { Button } from "reactstrap";
+import "./Login.css";
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -50,24 +52,24 @@ export default class Login extends Component {
           <></>
         )}
         <form onSubmit={this.login} className="form-signin">
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <div className="row">
-            <div className="col">
-              <input
-                type="text"
-                name="user_id"
-                onChange={this.handleFormChange}
-                placeholder="Enter Username"
-              />
-              <input
-                type="password"
-                name="user_password"
-                onChange={this.handleFormChange}
-                placeholder="Enter Password"
-              />
-              <input type="submit" value="Login" />
-            </div>
-          </div>
+          <h1>Please sign in</h1>
+
+          <input
+            type="text"
+            name="user_id"
+            onChange={this.handleFormChange}
+            placeholder="Enter Username"
+          />
+          <input
+            type="password"
+            name="user_password"
+            onChange={this.handleFormChange}
+            placeholder="Enter Password"
+          />
+          <Button type="submit" value="Login">
+            Login
+          </Button>
+
           <p>user_id === "adminA or adminB" && user_password === "123"</p>
         </form>
       </div>

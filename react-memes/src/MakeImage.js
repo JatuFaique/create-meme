@@ -55,9 +55,21 @@ export default class MakeImage extends Component {
       }
     };
     return (
-      <div>
-        <h1>Create here</h1>
-        <div>
+      <div className="page-box">
+        <h1>Create Your meme here</h1>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <p
+            style={{
+              marginTop: "8px",
+              marginBottom: "8px",
+              marginRight: "8px",
+            }}
+          >
+            Step 1: Generate Random Meme
+          </p>
+        </div>
+
+        <div className="random-gen-btn">
           <Button
             onClick={(e) => {
               this.setState({
@@ -67,6 +79,12 @@ export default class MakeImage extends Component {
           >
             Generate Random
           </Button>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <p>Step 2 : Modify Your Meme</p>
+        </div>
+
+        <div className="features-box">
           <label>
             Top Text
             <input
@@ -144,8 +162,9 @@ export default class MakeImage extends Component {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
+          <button onClick={showRandImage}>APPLY</button>
         </div>
-        <button onClick={showRandImage}>APPLY</button>
+
         {showRandImage()}
       </div>
     );

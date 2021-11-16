@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Route, Routes } from "react-router";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+
 import { BrowserRouter, Link, Redirect } from "react-router-dom";
-import { Button } from "reactstrap";
-import ShowList from "./ShowList";
+
+import "./MyTable.css";
 
 export default class MyTable extends Component {
   constructor(props) {
@@ -11,6 +13,8 @@ export default class MyTable extends Component {
       checkedList: [],
       checkMark: true,
       showMyList: false,
+      modal: false,
+      currImg: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -80,7 +84,7 @@ export default class MyTable extends Component {
   render() {
     if (this.state.showMyList) {
       return (
-        <div>
+        <div className="table-box">
           <Button
             onClick={() => {
               this.setState({
@@ -90,11 +94,11 @@ export default class MyTable extends Component {
           >
             Dashboard
           </Button>
-          <table border="5px">
+          <table className="response-table">
             <thead>
               <tr>
                 <td>Name</td>
-                <td>source</td>
+                <td>Image</td>
                 <td>ID</td>
               </tr>
             </thead>
@@ -104,35 +108,74 @@ export default class MyTable extends Component {
               ).map((showItem, i) => (
                 <tr key={i}>
                   <td>{showItem.name}</td>
-                  <td>{showItem.url}</td>
+                  <td>
+                    <img
+                      style={{ width: "100px", height: "100px" }}
+                      src={showItem.url}
+                      onClick={() => {
+                        this.setState({
+                          modal: !this.state.modal,
+                          currImg: showItem.url,
+                        });
+                      }}
+                    />
+                  </td>
                   <td>{showItem.id}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <Modal
+            isOpen={this.state.modal}
+            toggle={() => {
+              this.setState({ modal: !this.state.modal });
+            }}
+          >
+            <ModalHeader>title</ModalHeader>
+            <ModalBody>
+              <img
+                width={"500px"}
+                height={"500px"}
+                src={this.state.currImg}
+              ></img>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => {
+                  this.setState({ modal: !this.state.modal });
+                }}
+              >
+                OK
+              </Button>
+            </ModalFooter>
+          </Modal>
         </div>
       );
     }
     return (
-      <div>
+      <div className="table-box">
         {/* Show my list for Showing Checked list instead of all meme table using if */}
-        <p> Show your selected Meme List </p>
-        <Button onClick={this.handleShowList}>Show My List</Button>
+        <div> Show your selected Meme List </div>
+        <div className="table-btn">
+          <Button onClick={this.handleShowList}>Show My List</Button>
+        </div>
         <br></br>
         <form>
           {/* Make my list Pushhes the mapped items in local storage */}
           <p>
             Use Make My List as a Submit button after Selecting your choices
           </p>
-          <Button type="submit" onClick={this.handleSubmit}>
-            Make My List
-          </Button>
-          <table border="5px">
+          <div className="table-btn">
+            <Button type="submit" onClick={this.handleSubmit}>
+              Make My List
+            </Button>
+          </div>
+          <table className="response-table">
             <thead>
               <tr>
                 <td>Checkbox</td>
                 <td>Name</td>
-                <td>source</td>
+                <td>Image</td>
                 <td>ID</td>
               </tr>
             </thead>
@@ -152,12 +195,47 @@ export default class MyTable extends Component {
                     ></input>
                   </td>
                   <td>{this.props.memesList[i].name}</td>
-                  <td>{this.props.memesList[i].url}</td>
+                  <td>
+                    <img
+                      style={{ width: "100px", height: "100px" }}
+                      src={this.props.memesList[i].url}
+                      onClick={() => {
+                        this.setState({
+                          modal: !this.state.modal,
+                          currImg: this.props.memesList[i].url,
+                        });
+                      }}
+                    />
+                  </td>
                   <td>{this.props.memesList[i].id}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <Modal
+            isOpen={this.state.modal}
+            toggle={() => {
+              this.setState({ modal: !this.state.modal });
+            }}
+          >
+            <ModalHeader>title</ModalHeader>
+            <ModalBody>
+              <img
+                width={"500px"}
+                height={"500px"}
+                src={this.state.currImg}
+              ></img>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => {
+                  this.setState({ modal: !this.state.modal });
+                }}
+              >
+                OK
+              </Button>
+            </ModalFooter>
+          </Modal>
         </form>
       </div>
     );

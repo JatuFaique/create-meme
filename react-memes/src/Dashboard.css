@@ -1,0 +1,7 @@
+.dashboard-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}

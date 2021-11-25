@@ -25,16 +25,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NewSearchBar />
+        {/* <NewSearchBar /> */}
         {/* <Dashboard /> */}
-        {/* <Router>
+        <Router>
           <Route path="/" exact>
             <Login />
           </Route>
           <Route path="/Dashboard" exact>
             <Dashboard />
           </Route>
-        </Router> */}
+        </Router>
         {/* <MakeImage /> */}
       </div>
     );

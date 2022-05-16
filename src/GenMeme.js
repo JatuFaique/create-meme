@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
+import html2canvas from "html2canvas";
 import { Button, ButtonGroup, DropdownMenu, Fade } from "reactstrap";
 import { Dropdown, DropdownItem, DropdownToggle } from "reactstrap";
 import "./MakeImage.css";
 
-export default class MakeImage extends Component {
+export default class GenMeme extends Component {
   constructor(props) {
     super(props);
 
@@ -13,77 +14,39 @@ export default class MakeImage extends Component {
       dropdown: false,
       color: "white",
       memeResponse: [],
-      randomInt: null,
+      randomInt: 7,
       topText: "",
       bottomText: "",
       color: "white",
     };
-
-    const url = "https://api.imgflip.com/get_memes";
-    axios.get(url).then((response) => {
-      //console.log('hi', response.data.data)
-      this.setState({ memeResponse: response.data.data.memes });
-    });
+    this.exportAsImage = this.exportAsImage.bind(this);
   }
 
+  downloadImage = (blob, fileName) => {
+    const fakeLink = window.document.createElement("a");
+    fakeLink.style = "display:none;";
+    fakeLink.download = fileName;
+
+    fakeLink.href = blob;
+
+    document.body.appendChild(fakeLink);
+    fakeLink.click();
+    document.body.removeChild(fakeLink);
+
+    fakeLink.remove();
+  };
+  exportAsImage = (imageFileName) => {
+    var data = document.getElementById("image-box");
+    console.log(data);
+    html2canvas(data, { useCORS: true }).then((canvas) => {
+      var image = canvas.toDataURL("image/jpeg", 1.0);
+      this.downloadImage(image, imageFileName);
+    });
+  };
+
   render() {
-    const showRandImage = () => {
-      if (this.state.randomInt !== null) {
-        return (
-          <div className="image-box">
-            <img
-              width={"500px"}
-              height={"500px"}
-              src={this.state.memeResponse[this.state.randomInt].url}
-            ></img>
-            <div
-              className="image-text-top"
-              style={{ color: this.state.color, fontSize: this.state.size }}
-            >
-              {this.state.topText}
-            </div>
-            <div
-              className="image-text-bottom"
-              style={{ color: this.state.color, fontSize: this.state.size }}
-            >
-              {this.state.bottomText}
-            </div>
-          </div>
-        );
-      } else {
-        return <div></div>;
-      }
-    };
     return (
       <div className="page-box">
-        <h1>Create Your meme here</h1>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <p
-            style={{
-              marginTop: "8px",
-              marginBottom: "8px",
-              marginRight: "8px",
-            }}
-          >
-            Step 1: Generate Random Meme
-          </p>
-        </div>
-
-        <div className="random-gen-btn">
-          <Button
-            onClick={(e) => {
-              this.setState({
-                randomInt: Math.floor(Math.random() * 101),
-              });
-            }}
-          >
-            Generate Random
-          </Button>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <p>Step 2 : Modify Your Meme</p>
-        </div>
-
         <div className="features-box">
           <label>
             Top Text
@@ -162,10 +125,24 @@ export default class MakeImage extends Component {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          <button onClick={showRandImage}>APPLY</button>
+          <button onClick={() => this.exportAsImage("meme")}>Export</button>
         </div>
-
-        {showRandImage()}
+        <div className="image-box" id="image-box">
+          <picture></picture>
+          <img width={"500px"} height={"500px"} src={this.props.image}></img>
+          <div
+            className="image-text-top"
+            style={{ color: this.state.color, fontSize: this.state.size }}
+          >
+            <p>{this.state.topText}</p>
+          </div>
+          <div
+            className="image-text-bottom"
+            style={{ color: this.state.color, fontSize: this.state.size }}
+          >
+            {this.state.bottomText}
+          </div>
+        </div>
       </div>
     );
   }

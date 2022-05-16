@@ -5,13 +5,12 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import NewSearchBar from "./NewSearchBar";
-import MakeImage from "./MakeImage";
 import { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
+import MyList from "./MyList";
 
 // import axios from "axios";
 
@@ -33,6 +32,9 @@ class App extends Component {
           </Route>
           <Route path="/Dashboard" exact>
             <Dashboard />
+          </Route>
+          <Route path="/MyList" exact>
+            <MyList />
           </Route>
         </Router>
         {/* <MakeImage /> */}

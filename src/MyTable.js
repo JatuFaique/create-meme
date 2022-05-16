@@ -1,25 +1,26 @@
 import React, { Component } from "react";
 import { Route, Routes } from "react-router";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-import { BrowserRouter, Link, Redirect } from "react-router-dom";
+import { BrowserRouter, Link, Redirect, withRouter } from "react-router-dom";
 
 import "./MyTable.css";
+import GenMeme from "./GenMeme";
 
-export default class MyTable extends Component {
+class MyTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
       checkedList: [],
       checkMark: true,
-      showMyList: false,
+      // showMyList: false,
       modal: false,
       currImg: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
-    this.handleShowList = this.handleShowList.bind(this);
+    // this.handleShowList = this.handleShowList.bind(this);
   }
 
   handleSubmit(e) {
@@ -52,16 +53,7 @@ export default class MyTable extends Component {
       //true append id to checklist
       if (this.state.checkedList.indexOf(this.props.memesList[i].id) == -1)
         this.setState({
-          checkedList: [
-            ...this.state.checkedList,
-            i,
-            // this.props.memesList[i].id,
-            //   save with names
-            //   {
-            //     id: this.props.memesList[i].id,
-            //     name: this.props.memesList[i].name,
-            //   },
-          ],
+          checkedList: [...this.state.checkedList, i],
         });
     } else {
       if (this.state.checkedList.indexOf(i) != -1)
@@ -82,82 +74,19 @@ export default class MyTable extends Component {
   }
 
   render() {
-    if (this.state.showMyList) {
-      return (
-        <div className="table-box">
-          <Button
-            onClick={() => {
-              this.setState({
-                showMyList: !this.state.showMyList,
-              });
-            }}
-          >
-            Dashboard
-          </Button>
-          <table className="response-table">
-            <thead>
-              <tr>
-                <td>Name</td>
-                <td>Image</td>
-                <td>ID</td>
-              </tr>
-            </thead>
-            <tbody>
-              {JSON.parse(
-                localStorage.getItem(localStorage.getItem("username"))
-              ).map((showItem, i) => (
-                <tr key={i}>
-                  <td>{showItem.name}</td>
-                  <td>
-                    <img
-                      style={{ width: "100px", height: "100px" }}
-                      src={showItem.url}
-                      onClick={() => {
-                        this.setState({
-                          modal: !this.state.modal,
-                          currImg: showItem.url,
-                        });
-                      }}
-                    />
-                  </td>
-                  <td>{showItem.id}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <Modal
-            isOpen={this.state.modal}
-            toggle={() => {
-              this.setState({ modal: !this.state.modal });
-            }}
-          >
-            <ModalHeader>title</ModalHeader>
-            <ModalBody>
-              <img
-                width={"500px"}
-                height={"500px"}
-                src={this.state.currImg}
-              ></img>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                onClick={() => {
-                  this.setState({ modal: !this.state.modal });
-                }}
-              >
-                OK
-              </Button>
-            </ModalFooter>
-          </Modal>
-        </div>
-      );
-    }
+    const { history } = this.props;
     return (
       <div className="table-box">
         {/* Show my list for Showing Checked list instead of all meme table using if */}
         <div> Show your selected Meme List </div>
         <div className="table-btn">
-          <Button onClick={this.handleShowList}>Show My List</Button>
+          <button
+            onClick={() => {
+              this.props.history.push("MyList");
+            }}
+          >
+            Show My List
+          </button>
         </div>
         <br></br>
         <form>
@@ -166,9 +95,9 @@ export default class MyTable extends Component {
             Use Make My List as a Submit button after Selecting your choices
           </p>
           <div className="table-btn">
-            <Button type="submit" onClick={this.handleSubmit}>
+            <button type="submit" onClick={this.handleSubmit}>
               Make My List
-            </Button>
+            </button>
           </div>
           <table className="response-table">
             <thead>
@@ -220,20 +149,16 @@ export default class MyTable extends Component {
           >
             <ModalHeader>title</ModalHeader>
             <ModalBody>
-              <img
-                width={"500px"}
-                height={"500px"}
-                src={this.state.currImg}
-              ></img>
+              <GenMeme image={this.state.currImg} />
             </ModalBody>
             <ModalFooter>
-              <Button
+              <button
                 onClick={() => {
                   this.setState({ modal: !this.state.modal });
                 }}
               >
                 OK
-              </Button>
+              </button>
             </ModalFooter>
           </Modal>
         </form>
@@ -241,3 +166,5 @@ export default class MyTable extends Component {
     );
   }
 }
+
+export default withRouter(MyTable);

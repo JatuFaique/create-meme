@@ -44,7 +44,7 @@ export default class Dashboard extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <div className="dashboard-box">
+      <div className="dashboard-box" id="dashboard-box">
         <h1>Dashboard</h1>
         {/* Only check implemented for One User [ Only One State Variable ]
             Passing Meme Response as Props to table component */}

@@ -80,10 +80,17 @@ class MyTable extends Component {
       ...newArray[currid],
       isChecked: !newArray[currid].isChecked,
     };
-    this.setState({
-      showList: newArray,
-      memeResponse: newArray,
-    });
+    this.setState(
+      {
+        showList: newArray,
+        // memeResponse: newArray,
+      },
+      () => {
+        this.setState({
+          memeResponse: newArray,
+        });
+      }
+    );
 
     this.setState({
       checkedList: [...this.state.checkedList, item],

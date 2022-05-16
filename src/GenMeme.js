@@ -97,28 +97,28 @@ export default class GenMeme extends Component {
             <DropdownMenu>
               <DropdownItem
                 onClick={(e) => {
-                  this.setState({ size: 16 });
+                  this.setState({ size: "2rem" });
                 }}
               >
                 16
               </DropdownItem>
               <DropdownItem
                 onClick={(e) => {
-                  this.setState({ size: 18 });
+                  this.setState({ size: "2.5rem" });
                 }}
               >
                 18
               </DropdownItem>
               <DropdownItem
                 onClick={(e) => {
-                  this.setState({ size: 20 });
+                  this.setState({ size: "3rem" });
                 }}
               >
                 20
               </DropdownItem>
               <DropdownItem
                 onClick={(e) => {
-                  this.setState({ size: 22 });
+                  this.setState({ size: "3.2rem" });
                 }}
               >
                 22

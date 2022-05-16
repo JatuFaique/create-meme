@@ -20,6 +20,9 @@
 }
 
 .image-box {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 800;
+  font-size: 2rem;
   position: relative;
   display: flex;
   justify-content: center;
@@ -30,7 +33,6 @@
   display: flex;
   justify-content: center;
   top: 10%;
-  font-style: italic;
 }
 
 .image-text-bottom {
@@ -38,7 +40,6 @@
   display: flex;
   justify-content: center;
   bottom: 10%;
-  font-style: italic;
 }
 
 .features-box .btn-secondary {

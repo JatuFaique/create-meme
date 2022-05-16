@@ -10,18 +10,21 @@ export default class Dashboard extends Component {
     // if (localStorage.setItem("token", this.state.loginParams.user_id)) {
     // }
     super(props);
-    const url = "https://api.imgflip.com/get_memes";
-    axios.get(url).then((response) => {
-      //console.log('hi', response.data.data)
-      this.setState({ memeResponse: response.data.data.memes }, () => {});
-    });
-
     this.state = {
       memeResponse: [],
       islogout: false,
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.signOut = this.signOut.bind(this);
+  }
+
+  componentDidMount() {
+    const url = "https://api.imgflip.com/get_memes";
+    axios.get(url).then((response) => {
+      //console.log('hi', response.data.data)
+      this.setState({ memeResponse: response.data.data.memes });
+    });
   }
 
   handleChange(event) {
@@ -49,7 +52,7 @@ export default class Dashboard extends Component {
         {/* Only check implemented for One User [ Only One State Variable ]
             Passing Meme Response as Props to table component */}
         <Button onClick={this.signOut}>SignOut</Button>
-        <MyTable memesList={this.state.memeResponse}></MyTable>
+        <MyTable></MyTable>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Route, Routes } from "react-router";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
@@ -12,15 +13,41 @@ class MyTable extends Component {
     super(props);
     this.state = {
       checkedList: [],
-      checkMark: true,
-      // showMyList: false,
       modal: false,
+      searchTerm: "",
       currImg: "",
+      memeResponse: [],
+      showList: [],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     // this.handleShowList = this.handleShowList.bind(this);
+  }
+
+  componentDidMount() {
+    const url = "https://api.imgflip.com/get_memes";
+    axios.get(url).then((response) => {
+      //console.log('hi', response.data.data)
+      this.setState(
+        {
+          memeResponse: response.data.data.memes.map((a) => {
+            return {
+              ...a,
+              isChecked: false,
+            };
+          }),
+        },
+        () => {
+          this.setState({
+            showList: this.state.memeResponse,
+          });
+        }
+      );
+    });
+
+    console.log("heheheh");
   }
 
   handleSubmit(e) {
@@ -28,36 +55,53 @@ class MyTable extends Component {
     // localstorage
     console.log("submitted finally", this.state.checkedList);
     //Map over checked index and put that item information in local storage
-    var userA_check = [];
-    userA_check = this.state.checkedList.map((index, i) => {
-      return this.props.memesList[index];
-    });
-    console.log(userA_check);
+    var user_check = this.state.checkedList;
 
     localStorage.setItem(
       localStorage.getItem("username"),
-      JSON.stringify(userA_check)
+      JSON.stringify(user_check)
     );
     this.setState({
       checkedList: [],
     });
   }
 
-  handleCheck(i, isChecked) {
+  handleCheck(item, e) {
     // index and checked status
     // append in checklist that index for re creation
     // Added if..else check for unchecking items
+    console.log(item);
+    let currid = this.state.showList.findIndex(
+      (element) => element.id === item.id
+    );
 
-    if (isChecked) {
-      console.log(i);
+    let newArray = [...this.state.showList];
+    newArray[currid] = {
+      ...newArray[currid],
+      isChecked: !newArray[currid].isChecked,
+    };
+    this.setState({
+      showList: newArray,
+      memeResponse: newArray,
+    });
+
+    this.setState({
+      checkedList: [...this.state.checkedList, item],
+    });
+    if (e.target.checked) {
       //true append id to checklist
-      if (this.state.checkedList.indexOf(this.props.memesList[i].id) == -1)
+
+      if (this.state.checkedList.indexOf(this.state.checkedList[item]) === -1) {
         this.setState({
-          checkedList: [...this.state.checkedList, i],
+          checkedList: [...this.state.checkedList, item],
         });
+      }
     } else {
-      if (this.state.checkedList.indexOf(i) != -1)
-        this.state.checkedList.splice(this.state.checkedList.indexOf(i, 1));
+      this.setState({
+        checkedList: this.state.checkedList.filter((c_item) => {
+          return c_item !== item;
+        }),
+      });
     }
   }
 
@@ -72,9 +116,29 @@ class MyTable extends Component {
       });
     }
   }
+  handleSearch(e) {
+    console.log(e.target.value);
+    this.setState({
+      searchTerm: e.target.value,
+    });
+    if (this.state.searchTerm.length !== 0) {
+      let convertToLc = e.target.value.toLowerCase();
+      let filterData = this.state.memeResponse.filter((e) => {
+        let nameToLc = e.name.toLowerCase();
+        return nameToLc.indexOf(convertToLc) !== -1;
+      });
+
+      this.setState({
+        showList: filterData,
+      });
+    } else {
+      this.setState({
+        showList: this.state.memeResponse,
+      });
+    }
+  }
 
   render() {
-    const { history } = this.props;
     return (
       <div className="table-box">
         {/* Show my list for Showing Checked list instead of all meme table using if */}
@@ -99,6 +163,9 @@ class MyTable extends Component {
               Make My List
             </button>
           </div>
+          <div>
+            <input type="text" onChange={this.handleSearch} />
+          </div>
           <table className="response-table">
             <thead>
               <tr>
@@ -112,31 +179,32 @@ class MyTable extends Component {
               {/* mapping over the api response over index and show all,
               e.target.checked - True / False  
               i                - Index for which it is checked  */}
-              {this.props.memesList.map((item, i) => (
+              {this.state.showList.map((item, i) => (
                 <tr key={i}>
                   <td>
                     <input
                       key={i}
                       type="checkbox"
+                      checked={item.isChecked}
                       onChange={(e) => {
-                        this.handleCheck(i, e.target.checked);
+                        this.handleCheck(item, e);
                       }}
                     ></input>
                   </td>
-                  <td>{this.props.memesList[i].name}</td>
+                  <td>{item.name}</td>
                   <td>
                     <img
                       style={{ width: "100px", height: "100px" }}
-                      src={this.props.memesList[i].url}
+                      src={item.url}
                       onClick={() => {
                         this.setState({
                           modal: !this.state.modal,
-                          currImg: this.props.memesList[i].url,
+                          currImg: item.url,
                         });
                       }}
                     />
                   </td>
-                  <td>{this.props.memesList[i].id}</td>
+                  <td>{item.id}</td>
                 </tr>
               ))}
             </tbody>

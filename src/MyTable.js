@@ -71,11 +71,11 @@ class MyTable extends Component {
     // append in checklist that index for re creation
     // Added if..else check for unchecking items
     console.log(item);
-    let currid = this.state.showList.findIndex(
+    let currid = this.state.memeResponse.findIndex(
       (element) => element.id === item.id
     );
 
-    let newArray = [...this.state.showList];
+    let newArray = [...this.state.memeResponse];
     newArray[currid] = {
       ...newArray[currid],
       isChecked: !newArray[currid].isChecked,

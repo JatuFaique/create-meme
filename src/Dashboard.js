@@ -174,19 +174,31 @@ class Dashboard extends Component {
     return (
       <div className="dashboard grid-container col-3" id="grid-container-a">
         <div className="grid-content">
-          <ul className="list">
+          <ul className="list pos-sticky">
             <div className="list-heading">
-              <span>Hello User</span>
+              <span>Hello, {String(localStorage.getItem("username"))}</span>
               <i className="fa-solid fa-minus"></i>
             </div>
-            <li>Create a List</li>
-            <li
-              onClick={() => {
-                this.props.history.push("MyList");
-              }}
-            >
-              SHow My List
+            <li>
+              <div className="list-heading">
+                <span>Dashboard</span>
+              </div>
             </li>
+            <li>
+              Click on the Checkbox to make a list of your favoirite memes
+            </li>
+            <li>
+              <div
+                onClick={() => {
+                  this.props.history.push("MyList");
+                }}
+                className="list-heading"
+              >
+                <span>Show My List</span>
+              </div>
+            </li>
+            <li>You can checkout your saved Items and Generate a meme Here,</li>
+
             <li>
               <button onClick={this.signOut} className="btn-secd">
                 Logout
@@ -196,6 +208,7 @@ class Dashboard extends Component {
         </div>
         <div className="grid-content">
           <div className="input-field">
+            <p>Search Your Favoirite Memes Here!</p>
             <input
               id="email-field"
               onChange={this.handleSearch}
@@ -229,9 +242,11 @@ class Dashboard extends Component {
           </div>
         </div>
         <div className="grid-content">
-          <button className="btn-prim" onClick={this.handleSubmit}>
-            Submit
-          </button>
+          <div className="pos-sticky">
+            <button className="btn-prim" onClick={this.handleSubmit}>
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     );

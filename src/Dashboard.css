@@ -85,3 +85,8 @@
   top: 10px;
   right: 10px;
 }
+
+.pos-sticky {
+  position: sticky;
+  top: 1.2rem;
+}

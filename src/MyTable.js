@@ -4,8 +4,6 @@ import { Route, Routes } from "react-router";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import { BrowserRouter, Link, Redirect, withRouter } from "react-router-dom";
-
-import "./MyTable.css";
 import GenMeme from "./GenMeme";
 
 class MyTable extends Component {

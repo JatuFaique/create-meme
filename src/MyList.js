@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import "./MyTable.css";
+import "./MyList.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import GenMeme from "./GenMeme";
 
@@ -9,69 +9,62 @@ class MyList extends Component {
     super(props);
     this.state = {
       modal: false,
+      currImg: null,
     };
   }
   render() {
     return (
-      <div className="table-box">
-        <Button
-          onClick={() => {
-            this.props.history.push("/Dashboard");
-          }}
-        >
-          Dashboard
-        </Button>
-        <table className="response-table">
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>Image</td>
-              <td>ID</td>
-            </tr>
-          </thead>
-          <tbody>
-            {JSON.parse(
-              localStorage.getItem(localStorage.getItem("username"))
-            ).map((showItem, i) => (
-              <tr key={i}>
-                <td>{showItem.name}</td>
-                <td>
-                  <img
-                    style={{ width: "100px", height: "100px" }}
-                    src={showItem.url}
-                    onClick={() => {
-                      this.setState({
-                        modal: !this.state.modal,
-                        currImg: showItem.url,
-                      });
-                    }}
-                  />
-                </td>
-                <td>{showItem.id}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <Modal
-          isOpen={this.state.modal}
-          toggle={() => {
-            this.setState({ modal: !this.state.modal });
-          }}
-        >
-          <ModalHeader>title</ModalHeader>
-          <ModalBody>
-            <GenMeme image={this.state.currImg} />
-          </ModalBody>
-          <ModalFooter>
-            <Button
+      <div class="dashboard grid-container col-3">
+        <div class="grid-content">
+          <ul class="list pos-sticky">
+            <div class="list-heading">
+              <span>Hello User</span>
+              <i class="fa-solid fa-minus"></i>
+            </div>
+            <li
               onClick={() => {
-                this.setState({ modal: !this.state.modal });
+                this.props.history.push("/Dashboard");
               }}
             >
-              OK
-            </Button>
-          </ModalFooter>
-        </Modal>
+              Create a List
+            </li>
+            <li>SHow My List</li>
+            <li>
+              <button class="btn-secd">Logout</button>
+            </li>
+          </ul>
+        </div>
+        <div class="grid-content">
+          <h2>Your List</h2>
+          <p>You can view your selected memes here</p>
+          <div class="flex">
+            {JSON.parse(
+              localStorage.getItem(localStorage.getItem("username"))
+            ).map((item, i) => {
+              return (
+                <div
+                  onClick={() => {
+                    this.setState({
+                      currImg: item.url,
+                    });
+                  }}
+                  className="item card card-horizontal"
+                >
+                  <div className="content-horizontal">
+                    <img className="card-img" src={item.url} alt="loading" />
+
+                    <div className="card-text">
+                      <p>{item.name}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div class="grid-content">
+          <GenMeme image={this.state.currImg} />
+        </div>
       </div>
     );
   }

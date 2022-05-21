@@ -66,9 +66,9 @@ export default class Login extends Component {
             onChange={this.handleFormChange}
             placeholder="Enter Password"
           />
-          <Button type="submit" value="Login">
+          <button className="btn-prim" type="submit" value="Login">
             Login
-          </Button>
+          </button>
 
           <p>user_id === "adminA or adminB" && user_password === "123"</p>
         </form>

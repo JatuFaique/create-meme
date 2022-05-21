@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import html2canvas from "html2canvas";
 import { Button, ButtonGroup, DropdownMenu, Fade } from "reactstrap";
 import { Dropdown, DropdownItem, DropdownToggle } from "reactstrap";
@@ -66,6 +66,7 @@ export default class GenMeme extends Component {
           </label>
           <ButtonGroup>
             <Button
+              className="btn-prim"
               onClick={(e) => {
                 this.setState({ color: "Red" });
               }}
@@ -73,6 +74,7 @@ export default class GenMeme extends Component {
               Red
             </Button>
             <Button
+              className="btn-prim"
               onClick={(e) => {
                 this.setState({ color: "Blue" });
               }}
@@ -125,7 +127,13 @@ export default class GenMeme extends Component {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          <button onClick={() => this.exportAsImage("meme")}>Export</button>
+          <button
+            style={{ margin: "10px" }}
+            className="btn-prim"
+            onClick={() => this.exportAsImage("meme")}
+          >
+            Export
+          </button>
         </div>
         <div className="image-box" id="image-box">
           <picture></picture>
@@ -140,7 +148,7 @@ export default class GenMeme extends Component {
             className="image-text-bottom"
             style={{ color: this.state.color, fontSize: this.state.size }}
           >
-            {this.state.bottomText}
+            <p>{this.state.bottomText}</p>
           </div>
         </div>
       </div>

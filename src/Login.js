@@ -12,6 +12,15 @@ export default class Login extends Component {
       },
     };
   }
+  handleTestUser = (event) => {
+    event.preventDefault();
+    this.setState({
+      loginParams: {
+        user_id: "adminA",
+        user_password: "123",
+      },
+    });
+  };
   handleFormChange = (event) => {
     event.preventDefault();
     let loginParamsNew = { ...this.state.loginParams };
@@ -55,12 +64,14 @@ export default class Login extends Component {
           <h1>Please sign in</h1>
 
           <input
+            value={this.state.loginParams.user_id}
             type="text"
             name="user_id"
             onChange={this.handleFormChange}
             placeholder="Enter Username"
           />
           <input
+            value={this.state.loginParams.user_password}
             type="password"
             name="user_password"
             onChange={this.handleFormChange}
@@ -70,7 +81,10 @@ export default class Login extends Component {
             Login
           </button>
 
-          <p>user_id === "adminA or adminB" && user_password === "123"</p>
+          {/* <p>user_id === "adminA or adminB" && user_password === "123"</p> */}
+          <button onClick={this.handleTestUser} className="btn-secd">
+            Test User
+          </button>
         </form>
       </div>
     );

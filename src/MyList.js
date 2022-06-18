@@ -68,7 +68,7 @@ class MyList extends Component {
           <div class="flex">
             {JSON.parse(
               localStorage.getItem(localStorage.getItem("username"))
-            ).map((item, i) => {
+            )?.map((item, i) => {
               return (
                 <div
                   onClick={() => {

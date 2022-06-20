@@ -4,6 +4,7 @@ import html2canvas from "html2canvas";
 import { Button, ButtonGroup, DropdownMenu, Fade } from "reactstrap";
 import { Dropdown, DropdownItem, DropdownToggle } from "reactstrap";
 import "./MakeImage.css";
+import { toast } from "react-toastify";
 
 export default class GenMeme extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ export default class GenMeme extends Component {
       var image = canvas.toDataURL("image/jpeg", 1.0);
       this.downloadImage(image, imageFileName);
     });
+    toast.success("Image Downloaded");
   };
 
   render() {

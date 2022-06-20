@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
+import { toast } from "react-toastify";
 import { Button } from "reactstrap";
 import "./Login.css";
 export default class Login extends Component {
@@ -41,12 +42,16 @@ export default class Login extends Component {
       this.setState({
         logged_in: true,
       });
+      toast.success("Login Successfull");
     } else if (user_id === "adminB" && user_password === "123") {
+      toast.success("Login Successfull");
       localStorage.setItem("token", "B");
       localStorage.setItem("username", user_id);
       this.setState({
         logged_in: true,
       });
+    } else {
+      toast.warn("Login Failed");
     }
     event.preventDefault();
   };

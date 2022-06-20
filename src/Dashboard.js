@@ -5,6 +5,7 @@ import MyTable from "./MyTable";
 
 import { Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -69,8 +70,9 @@ class Dashboard extends Component {
       checkedList: [],
     });
     if (this.state.checkedList.length === 0) {
-      alert("No items in list");
-    } else alert("List Created Successfully");
+      toast.warn("No Items in list");
+      // alert("No items in list");
+    } else toast.success("List created successfully");
   }
 
   handleChange(event) {

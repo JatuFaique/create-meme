@@ -11,6 +11,8 @@ import "./App.css";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import MyList from "./MyList";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import axios from "axios";
 
@@ -23,22 +25,25 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        {/* <NewSearchBar /> */}
-        {/* <Dashboard /> */}
-        <Router>
-          <Route path="/" exact>
-            <Login />
-          </Route>
-          <Route path="/Dashboard" exact>
-            <Dashboard />
-          </Route>
-          <Route path="/MyList" exact>
-            <MyList />
-          </Route>
-        </Router>
-        {/* <MakeImage /> */}
-      </div>
+      <>
+        <ToastContainer />
+        <div>
+          {/* <NewSearchBar /> */}
+          {/* <Dashboard /> */}
+          <Router>
+            <Route path="/" exact>
+              <Login />
+            </Route>
+            <Route path="/Dashboard" exact>
+              <Dashboard />
+            </Route>
+            <Route path="/MyList" exact>
+              <MyList />
+            </Route>
+          </Router>
+          {/* <MakeImage /> */}
+        </div>
+      </>
     );
   }
 }
